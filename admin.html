@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sweet Mummy’s Yummy — Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap"
+    />
+    <style>
+      :root {
+        --bg: #fffaf0;
+        --ink: #17140f;
+        --red: #f5a30a;
+        --line: #eadfc8;
+        --mute: #6b6254;
+        --card: #fff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.5 "Work Sans",
+          Arial,
+          sans-serif;
+      }
+      header {
+        border-bottom: 1px solid var(--line);
+        padding: 18px 20px;
+      }
+      header a {
+        color: inherit;
+        text-decoration: none;
+        font:
+          700 24px "Archivo Narrow",
+          Arial,
+          sans-serif;
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px 18px 60px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Archivo Narrow", Arial, sans-serif;
+      }
+      h1 {
+        font-size: 38px;
+        margin: 0 0 6px;
+      }
+      h2 {
+        font-size: 28px;
+      }
+      .muted {
+        color: var(--mute);
+      }
+      .panel,
+      .order {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 20px;
+        margin-top: 18px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: white;
+        font: inherit;
+      }
+      .btn {
+        border: 0;
+        border-radius: 999px;
+        background: var(--red);
+        color: var(--ink);
+        padding: 12px 18px;
+        font:
+          600 15px "Work Sans",
+          Arial,
+          sans-serif;
+        cursor: pointer;
+      }
+      .login {
+        display: flex;
+        gap: 10px;
+        max-width: 480px;
+      }
+      .login input {
+        flex: 1;
+        min-width: 0;
+      }
+      .error {
+        color: #c0220f;
+        min-height: 1em;
+      }
+      .order h3 {
+        margin: 0;
+        font-size: 23px;
+      }
+      .order p {
+        margin: 5px 0;
+      }
+      .order-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .order-controls label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .toprow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 600px) {
+        .login {
+          flex-direction: column;
+        }
+        .order-controls {
+          grid-template-columns: 1fr;
+        }
+        .wrap {
+          padding: 20px 14px;
+        }
+      }
+    
+      /* polish */
+      a,button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+      .panel{animation:rise .5s cubic-bezier(.22,1,.36,1) both}
+      .order{transition:box-shadow .25s}
+      .btn{transition:transform .18s cubic-bezier(.22,1,.36,1),background-color .2s,box-shadow .2s}
+      input,select{transition:border-color .2s,box-shadow .2s}
+      input:focus,select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(245,163,10,.25)}
+      .btn:active{transform:scale(.96)}
+      @media (hover:hover){
+        .order:hover{box-shadow:0 14px 30px -16px rgba(23,20,15,.3)}
+        .btn:hover{background:#d98a00;box-shadow:0 6px 16px -6px rgba(217,138,0,.6)}
+      }
+      @keyframes rise{from{opacity:0;transform:translateY(12px)}}
+      @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html">Sweet Mummy’s Yummy</a>
+    </header>
+    <main class="wrap">
+      <div class="toprow">
+        <div>
+          <h1>Order admin</h1>
+          <p class="muted">
+            Review orders and update order and payment statuses. Use the same
+            hosted website as the main page so both pages share order data.
+          </p>
+        </div>
+        <a href="index.html">← Back to website</a>
+      </div>
+      <section class="panel" id="loginPanel">
+        <label for="pin">Admin access code</label>
+        <div class="login">
+          <input
+            id="pin"
+            type="password"
+            placeholder="Enter admin code"
+          /><button class="btn" id="login">Open admin</button>
+        </div>
+        <p class="error" id="msg">
+          Demo code: admin123. Replace this browser-only gate with secure
+          server-side authentication before launch.
+        </p>
+      </section>
+      <section id="orders" aria-live="polite"></section>
+    </main>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const money = (n) => "GH₵" + Number(n || 0).toLocaleString("en-GH");
+      const safe = (k, v) => {
+        try {
+          return v === undefined
+            ? JSON.parse(localStorage.getItem(k))
+            : localStorage.setItem(k, JSON.stringify(v));
+        } catch (e) {
+          return null;
+        }
+      };
+      const STAGES = [
+        { id: "statusa", label: "Order being processed" },
+        { id: "statusb", label: "Order ready" },
+        { id: "statusc", label: "Delivering on the way" },
+        { id: "statusd", label: "Order received" },
+      ];
+      let unlocked = false;
+      $("login").onclick = () => {
+        if ($("pin").value === "admin123") {
+          unlocked = true;
+          $("msg").textContent = "Admin unlocked.";
+          $("loginPanel").style.display = "none";
+          draw();
+        } else $("msg").textContent = "Incorrect access code.";
+      };
+      function draw() {
+        if (!unlocked) return;
+        const orders = safe("smy-orders") || [];
+        if (!orders.length) {
+          $("orders").innerHTML =
+            '<div class="panel">No orders have been saved in this browser yet.</div>';
+          return;
+        }
+        $("orders").innerHTML = orders
+          .slice()
+          .reverse()
+          .map(
+            (o) =>
+              `<article class="order"><h3>${esc(o.ref)} · ${esc(o.name || "Customer")}</h3><p class="muted">${esc(o.phone || "")} · ${esc(o.mode || "")} · ${money(o.total)} · Payment: ${esc(o.paymentStatus || "pending")}</p><p><b>Items:</b> ${(o.lines || []).map((x) => `${esc(x.qty)} × ${esc(x.name)}${x.label ? " (" + esc(x.label) + ")" : ""}`).join(", ")}</p><p><b>Delivery:</b> ${esc(o.address || "Pickup")}${o.notes ? " · <b>Notes:</b> " + esc(o.notes) : ""}</p><p><b>Branch:</b> ${esc(o.branch || "")}</p><div class="order-controls"><div><label for="st-${esc(o.ref)}">Order status</label><select id="st-${esc(o.ref)}" data-ref="${esc(o.ref)}">${STAGES.map((s) => `<option value="${s.id}" ${s.id === (o.status || "statusa") ? "selected" : ""}>${s.id} — ${s.label}</option>`).join("")}</select></div><div><label for="pay-${esc(o.ref)}">Payment status</label><select id="pay-${esc(o.ref)}" data-pay-ref="${esc(o.ref)}"><option value="pending" ${(o.paymentStatus || "pending") === "pending" ? "selected" : ""}>Pending</option><option value="paid" ${o.paymentStatus === "paid" ? "selected" : ""}>Paid</option><option value="failed" ${o.paymentStatus === "failed" ? "selected" : ""}>Failed</option></select></div></div></article>`,
+          )
+          .join("");
+        $("orders")
+          .querySelectorAll("[data-ref]")
+          .forEach(
+            (sel) =>
+              (sel.onchange = () => {
+                const all = safe("smy-orders") || [];
+                const o = all.find(
+                  (x) => String(x.ref || "") === sel.dataset.ref,
+                );
+                if (o) {
+                  o.status = String(sel.value).toLowerCase();
+                  safe("smy-orders", all);
+                  draw();
+                }
+              }),
+          );
+        $("orders")
+          .querySelectorAll("[data-pay-ref]")
+          .forEach(
+            (sel) =>
+              (sel.onchange = () => {
+                const all = safe("smy-orders") || [];
+                const o = all.find((x) => x.ref === sel.dataset.payRef);
+                if (o) {
+                  o.paymentStatus = sel.value;
+                  safe("smy-orders", all);
+                  draw();
+                }
+              }),
+          );
+      }
+    </script>
+  </body>
+</html>

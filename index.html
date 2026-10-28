@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>
+      Sweet Mummy’s Yummy – Jollof, fried rice and loaded fries in Accra
+    </title>
+    <meta name="theme-color" content="#17140f" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="bar">
+        <a class="logo" href="#top"
+          ><img id="logoimg" alt="" />Sweet Mummy’s Yummy</a
+        >
+        <div class="top-search">
+          <input
+            id="menuSearch"
+            type="search"
+            placeholder="Search dishes…"
+            aria-label="Search dishes"
+            autocomplete="off"
+            aria-haspopup="dialog"
+            aria-controls="searchModal"
+          />
+        </div>
+        <a class="nl" href="#popular">Popular</a
+        ><a class="nl" href="#menu">Full menu</a
+        ><a class="nl" href="#trackModal" id="headerTrack">Track order</a>
+        <button class="cartbtn" id="openCart" aria-label="Open basket">
+          <svg
+            class="ic"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 18h18" />
+            <path d="M5 18a7 7 0 0 1 14 0" />
+            <path d="M12 11V9" />
+            <circle cx="12" cy="8" r="1" /></svg
+          ><span id="cnt" class="bdg">0</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <h1 class="visually-hidden">
+        Sweet Mummy’s Yummy — jollof, fried rice and loaded fries in Accra
+      </h1>
+      <div
+        class="hero-carousel"
+        id="heroCarousel"
+        aria-roledescription="carousel"
+        aria-label="Popular dishes"
+      >
+        <div class="hero-track" id="heroTrack"></div>
+        <button
+          class="hero-nav prev"
+          id="heroPrev"
+          type="button"
+          aria-label="Previous popular dish"
+        >
+          ‹
+        </button>
+        <button
+          class="hero-nav next"
+          id="heroNext"
+          type="button"
+          aria-label="Next popular dish"
+        >
+          ›
+        </button>
+        <div class="hero-dots" id="heroDots" role="tablist"></div>
+      </div>
+    </section>
+    <section class="obar">
+      <div class="in">
+        <div class="seg" role="group" aria-label="Order type">
+          <button id="mDel" aria-pressed="true">Delivery</button
+          ><button id="mPick" aria-pressed="false">Pickup</button>
+        </div>
+        <label
+          >Branch
+          <select id="branch"></select></label
+        ><span class="hint" id="bhint"></span>
+      </div>
+    </section>
+
+    <main>
+      <ol class="how">
+        <li>Pick your food</li>
+        <li>Place your order online</li>
+        <li>Pay securely at checkout</li>
+      </ol>
+      <section id="popular">
+        <div class="section-head">
+          <h2>Popular dishes</h2>
+          <a class="btn alt menu-link" href="#menu">View full menu</a>
+        </div>
+        <div class="cards" id="cards"></div>
+      </section>
+      <section id="menu">
+        <h2>Full menu</h2>
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div id="list"></div>
+        <p class="note">
+          Prices shown are the ones the kitchen gave us. Delivery is GH₵25
+          anywhere within Accra.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <span
+          >Sweet Mummy’s Yummy · Eastlegon branch ·
+          <a href="admin.html">Admin</a></span
+        >
+        <span
+          >Call or WhatsApp <a href="tel:0538030333">0538030333</a> · Instagram
+          <a href="https://instagram.com/sweetmummysyummy"
+            >@sweetmummysyummy</a
+          ></span
+        >
+      </div>
+    </footer>
+
+    <nav class="fnav" aria-label="Main">
+      <a href="#top"
+        ><svg
+          class="ic"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 11l8-7 8 7v9H4z" /></svg
+        >Home</a
+      ><a href="#popular"
+        ><svg
+          class="ic"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 6h14M5 12h14M5 18h9" /></svg
+        >Menu</a
+      ><button id="navTrack" aria-label="Track order">
+        <svg
+          class="ic"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z" />
+          <circle cx="12" cy="10" r="2.5" /></svg
+        >Track</button
+      ><button id="navCart" aria-label="Open basket">
+        <svg
+          class="ic"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 18h18" />
+          <path d="M5 18a7 7 0 0 1 14 0" />
+          <path d="M12 11V9" />
+          <circle cx="12" cy="8" r="1" /></svg
+        >Basket<span class="bdg cart-badge-secondary" id="cnt2">0</span>
+      </button>
+    </nav>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="scrim" id="scrim"></div>
+    <div
+      class="modal search-modal"
+      id="searchModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Search dishes"
+      aria-hidden="true"
+    >
+      <div class="modal-card search-card">
+        <div class="search-head">
+          <input
+            id="popupSearch"
+            type="search"
+            placeholder="Search dishes…"
+            autocomplete="off"
+            aria-label="Search dishes"
+          />
+          <button
+            class="modal-close"
+            id="closeSearch"
+            aria-label="Close search"
+          >
+            ×
+          </button>
+        </div>
+        <div id="searchResults" class="search-results" aria-live="polite"></div>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="trackModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="trackTitle"
+    >
+      <div class="modal-card">
+        <button
+          class="modal-close"
+          id="closeTrack"
+          aria-label="Close tracking popup"
+        >
+          ×
+        </button>
+        <h2 id="trackTitle">Track your order</h2>
+        <p class="sub">
+          Enter the order code you received after placing your order.
+        </p>
+        <form id="tf">
+          <input
+            id="tref"
+            placeholder="Order code, e.g. SMY-4821"
+            aria-label="Order code"
+            autocomplete="off"
+          /><button class="btn">Track order</button>
+        </form>
+        <div id="tout" aria-live="polite"></div>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="receiptModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="receiptTitle"
+    >
+      <div class="modal-card receipt-card">
+        <button
+          class="modal-close"
+          id="closeReceipt"
+          aria-label="Close receipt"
+        >
+          ×
+        </button>
+        <h2 id="receiptTitle">Order receipt</h2>
+        <p class="sub">Thanks for ordering from Sweet Mummy’s Yummy.</p>
+        <div id="receiptBody"></div>
+        <div class="receipt-actions">
+          <button class="btn" id="receiptTrack">Track this order</button
+          ><button class="btn alt" id="receiptDone">Done</button
+          ><button class="btn alt" id="printReceipt">Print receipt</button>
+        </div>
+        <p class="hint">
+          Demo receipt only. This confirms the order was saved in this browser;
+          no payment has been collected.
+        </p>
+      </div>
+    </div>
+    <aside id="cart" aria-label="Basket" aria-hidden="true">
+      <div class="ah">
+        <h2>Your basket</h2>
+        <button class="btn alt" id="closeCart">Close</button>
+      </div>
+      <div class="ab">
+        <div id="items"></div>
+        <div id="totals"></div>
+        <div id="co">
+          <label for="basketBranch">Choose your branch</label>
+          <select id="basketBranch"></select>
+          <p class="hint" id="basketBranchHint">Select Accra, Kumasi or KNUST, Kumasi.</p>
+          <label for="nm">Your name</label><input id="nm" autocomplete="name" />
+          <label for="ph">Phone number</label
+          ><input
+            id="ph"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="024 000 0000"
+          />
+          <div id="addrBox">
+            <label for="ad">Delivery address or landmark</label
+            ><textarea
+              id="ad"
+              rows="2"
+              placeholder="House number, street, area"
+            ></textarea>
+          </div>
+          <label for="nt">Notes (no pepper, extra egg…)</label
+          ><textarea id="nt" rows="2"></textarea>
+          <p class="err" id="err" role="alert"></p>
+        </div>
+      </div>
+      <div class="af">
+        <button class="btn" id="send">Place order</button>
+        <p class="hint">
+          Online checkout is prepared for payment-provider setup.
+        </p>
+      </div>
+    </aside>
+
+    <script src="app.js"></script>
+  </body>
+</html>
